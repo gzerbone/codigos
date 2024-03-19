@@ -18,7 +18,7 @@ typedef struct {
 instruction code[cxmax];
 long long int s[stacksize];
 
-int base(int l) {  
+int base(int l) {
     int b1 = 1; // encontra base l níveis abaixo
 
     while (l > 0) {
@@ -83,7 +83,9 @@ void interpretador() {
             case opr: // opera��es
                 switch(i.a){
                     case 0: // Return
-                        return 0;
+                        t = b - 1;
+                        p = s[t + 3];
+                        b = s[t + 2];
                         break;
                     case 1: // neg
                         s[t] = -s[t];

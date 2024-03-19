@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#define amax 2047      // máximo endereço
-#define levmax 3       // máxima profundidade de aninhamento de funções
-#define cxmax 200      // número máximo de instruções que podem ser armazenadas code[]
+#define amax 2047      // maximo endereco
+#define levmax 3       // maxima profundidade de aninhamento de funcoes
+#define cxmax 200      // numero maximo de instrucoes que podem ser armazenadas code[]
 #define stacksize 500
 
 // Aluna: Gabriela Zerbone Magno Baptista
@@ -10,55 +10,50 @@
 enum fct{lit, opr, lod, sto, cal, INT, jmp, jpc};
 
 typedef struct {
-    enum fct f; //tipo da função
+    enum fct f; //tipo da funcoo
     int l;      //nivel
     int a;      //argumento
 } instruction;
 
 instruction code[cxmax];
 
+/***
+ *     FUNCAO "base()":
+ *         responsavel por encontrar o endereco base de uma variavel ou
+ *         funcao dentro da cadeia de blocos aninhados em execucao, percorrendo
+ *         blocos ancestrais na cadeia de blocos ate chegar ao nivel lexico desejado,
+ *         atualizando o endereco base caso necessario
+ *     VARIAVEIS:
+ *         l : nivel da variavel ou funcao que queremos encontrar
+ *         b : o valor do registrador "b" (base) no momento em que a funcao e chamada.
+ *             'b' representa o inicio do bloco atual em execucao
+ *         b1 : copia do valor de 'b'. Dentro do loop, b1 e atualizado para apontar
+ *              para o "bloco pai" (um nivel acima na cadeia de blocos) de b1. Isso e
+ *              feito acessando o stack, que e uma representacao da cadeia de blocos aninhados na memoria.
+ * ***/
+int base(int l) {
+    int b1 = 1; // encontra base l nÃ­veis abaixo
+
+    while (l > 0) {
+        b1 = code[b1].a;
+        l--;
+    }
+    return b1;
+}
 void interpret() {
     int p = 0, b = 1, t = 0; // registros , base, topo da pilha
-    instruction i; // registro de instrução
+    instruction i; // registro de instrucao
     int s[stacksize];
 
-    //espaços reservados
+    //espacos reservados
     s[1] = 0;
     s[2] = 0;
     s[3] = 0;
 
-    // Instruções:
+    // Instrucoes:
     code[0].f = opr;
     code[0].l = 0;
     code[0].a = 0;
-
-    /***
-        FUNÇÃO "base()":
-            responsável por encontrar o endereço base de uma variável ou
-            função dentro da cadeia de blocos aninhados em execução, percorrendo
-            blocos ancestrais na cadeia de blocos até chegar ao nível léxico desejado,
-            atualizando o endereço base caso necessário.
-
-        VARIÁVEIS:
-            l : nível da variável ou função que queremos encontrar.
-
-            b : o valor do registrador "b" (base) no momento em que a função é chamada.
-                'b' representa o onício do bloco atual em execução.
-
-            b1 : cópia do valor de 'b'. Dentro do loop, b1 é atualizado para apontar
-                 para o "bloco pai" (um nível acima na cadeia de blocos) de b1. Isso é
-                 feito acessando o stack, que é uma representação da cadeia de blocos aninhados na memória.
-    ***/
-    int base(int l) {  //função interna
-        int b1 = b; // encontra base l níveis abaixo
-
-        while (l > 0) {
-            b1 = s[b1];
-            l--;
-        }
-        return b1;
-    }
-
 
     printf("\n| p |  b |  t |");
     printf("\n|---|----|----|");
@@ -74,10 +69,12 @@ void interpret() {
                 s[t] = i.a;
                 printf("\nlit %d, %d\n", i.l, i.a);
                 break;
-            case opr: // operações
+            case opr: // operacoes
                 switch(i.a){
                     case 0: // Return
-                        return 0;
+                        t = b - 1;
+                        p = s[t + 3];
+                        b = s[t + 2];
                         break;
                     case 1: // neg
                         s[t] = -s[t];
@@ -86,15 +83,15 @@ void interpret() {
                         t--;
                         s[t] = s[t] + s[t + 1];
                         break;
-                    case 3: // Subtração
+                    case 3: // Subtracao
                         t--;
                         s[t] = s[t] - s[t + 1];
                         break;
-                    case 4: // Multiplicação
+                    case 4: // Multiplicacao
                         t--;
                         s[t] = s[t] * s[t + 1];
                         break;
-                    case 5: // Divisão
+                    case 5: // Divisao
                         t--;
                         s[t] = s[t] / s[t + 1];
                         break;
@@ -105,7 +102,7 @@ void interpret() {
                         t--;
                         s[t] = (s[t] == s[t + 1]);
                         break;
-                    case 9: // Diferença
+                    case 9: // Diferenca
                         t--;
                         s[t] = (s[t] != s[t + 1]);
                         break;
