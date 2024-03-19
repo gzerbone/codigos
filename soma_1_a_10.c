@@ -17,7 +17,7 @@ typedef struct {
 
 instruction code[cxmax];
 
-int base(int l) {  //função externa
+int base(int l) {  
     int b1 = 1; // encontra base l níveis abaixo
 
     while (l > 0) {

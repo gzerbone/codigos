@@ -1,15 +1,16 @@
 #include <stdio.h>
+#include<locale.h>
+
 #define amax 2047
-#define levmax 3       // máxima profundidade de aninhamento de funções
-#define cxmax 1000      // número máximo de instruções que podem ser armazenadas code[]
+#define levmax 3       // mï¿½xima profundidade de aninhamento de funï¿½ï¿½es
+#define cxmax 1000      // nï¿½mero mï¿½ximo de instruï¿½ï¿½es que podem ser armazenadas code[]
 #define stacksize 5012
 
 // Aluna: Gabriela Zerbone Magno Baptista
 
 enum fct{lit, opr, lod, sto, cal, INT, jmp, jpc};
-
 typedef struct {
-    enum fct f; //tipo da função
+    enum fct f; //tipo da funï¿½ï¿½o
     long long int l;      //nivel
     long long int a;      //argumento
 } instruction;
@@ -17,23 +18,33 @@ typedef struct {
 instruction code[cxmax];
 long long int s[stacksize];
 
+int base(int l) {  
+    int b1 = 1; // encontra base l nÃ­veis abaixo
+
+    while (l > 0) {
+        b1 = code[b1].a;
+        l--;
+    }
+    return b1;
+}
+
 void interpretador() {
     instruction i;
     int p = 0, b = 1, t = 0;
 
-    //espaços reservados
+    //espaï¿½os reservados
     s[1] = 0;
     s[2] = 0;
     s[3] = 0;
 
-    // INSTRUÇÕES
+    // INSTRUï¿½ï¿½ES
     /***
         int soma = 1;
         for (int i = 2; i <= 1000; i++) {
             soma += i * i * i;
     ***/
     int k = 0;
-    code[k].f = INT; code[k].l = 0; code[k].a = 6; k++;			// 0-  libera 6 espaços de memoria
+    code[k].f = INT; code[k].l = 0; code[k].a = 6; k++;			// 0-  libera 6 espaï¿½os de memoria
     code[k].f = lit; code[k].l = 0; code[k].a = 2; k++;			// 1 - Inicia contador com 2
     code[k].f = sto; code[k].l = 0; code[k].a = 3; k++;			// 2 - Salva contador
     code[k].f = lit; code[k].l = 0; code[k].a = 1000; k++;		// 3 - Explicita o Limite
@@ -49,7 +60,7 @@ void interpretador() {
     code[k].f = opr; code[k].l = 0; code[k].a = 2; k++;			// 13 - Soma + i
     code[k].f = sto; code[k].l = 0; code[k].a = 5; k++;			// 14 - Salva a Soma
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;			// 15 - Carrega i
-    code[k].f = lod; code[k].l = 0; code[k].a = 4; k++;			// 16 - CArrega Máximo
+    code[k].f = lod; code[k].l = 0; code[k].a = 4; k++;			// 16 - CArrega Mï¿½ximo
     code[k].f = opr; code[k].l = 0; code[k].a = 10; k++;		// 17 - i <= 1000
     code[k].f = jpc; code[k].l = 0; code[k].a = 23; k++;		// 18 - Saida do loop
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;			// 19 - carrega i
@@ -57,17 +68,6 @@ void interpretador() {
     code[k].f = sto; code[k].l = 0; code[k].a = 3; k++;			// 21 - Salva i
     code[k].f = jmp; code[k].l = 0; code[k].a = 7; k++;			// 22 - Fim do loop
     code[k].f = opr; code[k].l = 0; code[k].a = 0;				// 23 - Fim do programa
-
-
-    int base(int l) {  //função interna
-        int b1 = b; // encontra base l níveis abaixo
-
-        while (l > 0) {
-            b1 = s[b1];
-            l--;
-        }
-        return b1;
-    }
 
     printf("\n| p |  b |  t |                      conteudo da pilha                      |");
     printf("\n|---|----|----|-------------------------------------------------------------|");
@@ -80,7 +80,7 @@ void interpretador() {
                 t++;
                 s[t] = i.a;
                 break;
-            case opr: // operações
+            case opr: // operaï¿½ï¿½es
                 switch(i.a){
                     case 0: // Return
                         return 0;
@@ -93,15 +93,15 @@ void interpretador() {
                         s[t] = s[t] + s[t + 1];
                         //printf("Soma: %d + %d = %d", s[t], s[t+1], s[t]);
                         break;
-                    case 3: // Subtração
+                    case 3: // Subtraï¿½ï¿½o
                         t--;
                         s[t] = s[t] - s[t + 1];
                         break;
-                    case 4: // Multiplicação
+                    case 4: // Multiplicaï¿½ï¿½o
                         t--;
                         s[t] = s[t] * s[t + 1];
                         break;
-                    case 5: // Divisão
+                    case 5: // Divisï¿½o
                         t--;
                         s[t] = s[t] / s[t + 1];
                         break;
@@ -112,7 +112,7 @@ void interpretador() {
                         t--;
                         s[t] = (s[t] == s[t + 1]);
                         break;
-                    case 9: // Diferença
+                    case 9: // Diferenï¿½a
                         t--;
                         s[t] = (s[t] != s[t + 1]);
                         break;
