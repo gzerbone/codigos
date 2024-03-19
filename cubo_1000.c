@@ -2,15 +2,15 @@
 #include<locale.h>
 
 #define amax 2047
-#define levmax 3       // m�xima profundidade de aninhamento de fun��es
-#define cxmax 1000      // n�mero m�ximo de instru��es que podem ser armazenadas code[]
+#define levmax 3       
+#define cxmax 1000      
 #define stacksize 5012
 
 // Aluna: Gabriela Zerbone Magno Baptista
 
 enum fct{lit, opr, lod, sto, cal, INT, jmp, jpc};
 typedef struct {
-    enum fct f; //tipo da fun��o
+    enum fct f; //tipo da funcao
     long long int l;      //nivel
     long long int a;      //argumento
 } instruction;
@@ -32,19 +32,19 @@ void interpretador() {
     instruction i;
     int p = 0, b = 1, t = 0;
 
-    //espa�os reservados
+    //espacos reservados
     s[1] = 0;
     s[2] = 0;
     s[3] = 0;
 
-    // INSTRU��ES
+    // INSTRUCOES
     /***
         int soma = 1;
         for (int i = 2; i <= 1000; i++) {
             soma += i * i * i;
     ***/
     int k = 0;
-    code[k].f = INT; code[k].l = 0; code[k].a = 6; k++;			// 0-  libera 6 espa�os de memoria
+    code[k].f = INT; code[k].l = 0; code[k].a = 6; k++;			// 0-  libera 6 espaaos de memoria
     code[k].f = lit; code[k].l = 0; code[k].a = 2; k++;			// 1 - Inicia contador com 2
     code[k].f = sto; code[k].l = 0; code[k].a = 3; k++;			// 2 - Salva contador
     code[k].f = lit; code[k].l = 0; code[k].a = 1000; k++;		// 3 - Explicita o Limite
@@ -60,7 +60,7 @@ void interpretador() {
     code[k].f = opr; code[k].l = 0; code[k].a = 2; k++;			// 13 - Soma + i
     code[k].f = sto; code[k].l = 0; code[k].a = 5; k++;			// 14 - Salva a Soma
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;			// 15 - Carrega i
-    code[k].f = lod; code[k].l = 0; code[k].a = 4; k++;			// 16 - CArrega M�ximo
+    code[k].f = lod; code[k].l = 0; code[k].a = 4; k++;			// 16 - CArrega Maximo
     code[k].f = opr; code[k].l = 0; code[k].a = 10; k++;		// 17 - i <= 1000
     code[k].f = jpc; code[k].l = 0; code[k].a = 23; k++;		// 18 - Saida do loop
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;			// 19 - carrega i
@@ -80,7 +80,7 @@ void interpretador() {
                 t++;
                 s[t] = i.a;
                 break;
-            case opr: // opera��es
+            case opr: 
                 switch(i.a){
                     case 0: // Return
                         t = b - 1;
@@ -93,17 +93,16 @@ void interpretador() {
                     case 2: // Soma
                         t--;
                         s[t] = s[t] + s[t + 1];
-                        //printf("Soma: %d + %d = %d", s[t], s[t+1], s[t]);
                         break;
-                    case 3: // Subtra��o
+                    case 3: // Subtracao
                         t--;
                         s[t] = s[t] - s[t + 1];
                         break;
-                    case 4: // Multiplica��o
+                    case 4: // Multiplicacao
                         t--;
                         s[t] = s[t] * s[t + 1];
                         break;
-                    case 5: // Divis�o
+                    case 5: // Divisao
                         t--;
                         s[t] = s[t] / s[t + 1];
                         break;
@@ -114,7 +113,7 @@ void interpretador() {
                         t--;
                         s[t] = (s[t] == s[t + 1]);
                         break;
-                    case 9: // Diferen�a
+                    case 9: // Diferenca
                         t--;
                         s[t] = (s[t] != s[t + 1]);
                         break;
@@ -139,11 +138,9 @@ void interpretador() {
             case lod:
                 t++;
                 s[t] = s[base(i.l) + i.a];
-                //printf("lod %d, %d\n", i.l, i.a);
                 break;
             case sto:
                 s[base(i.l) + i.a] = s[t];
-                //printf("sto %d, %d\n", i.l, i.a);
                 t--;
                 break;
             case cal:
@@ -152,21 +149,17 @@ void interpretador() {
                 s[t + 3] = p;
                 b = t + 1;
                 p = i.a;
-                //printf("cal %d, %d\n", i.l, i.a);
                 break;
             case INT:
                 t += i.a;
-                //printf("INT %d\n", i.a);
                 break;
             case jmp:
                 p = i.a;
-                //printf("jmp %d\n", i.a);
                 break;
             case jpc:
                 if (s[t] == 0){
                     p = i.a;
                     t--;
-                    //printf("jpc %d\n", i.a);
                 }
                 break;
         }
