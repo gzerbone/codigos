@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#define amax 2047      // máximo endereço
-#define levmax 3       // máxima profundidade de aninhamento de funções
-#define cxmax 200      // número máximo de instruções que podem ser armazenadas code[]
+#define amax 2047      // mÃ¡ximo endereÃ§o
+#define levmax 3       // mÃ¡xima profundidade de aninhamento de funÃ§Ãµes
+#define cxmax 200      // nÃºmero mÃ¡ximo de instruÃ§Ãµes que podem ser armazenadas code[]
 #define stacksize 500
 
 // Aluna: Gabriela Zerbone Magno Baptista
@@ -10,31 +10,41 @@
 enum fct{lit, opr, lod, sto, cal, INT, jmp, jpc};
 
 typedef struct {
-    enum fct f; //tipo da função
+    enum fct f; //tipo da funÃ§Ã£o
     int l;      //nivel
     int a;      //argumento
 } instruction;
 
 instruction code[cxmax];
 
+int base(int l) {  //funÃ§Ã£o externa
+    int b1 = 1; // encontra base l nÃ­veis abaixo
+
+    while (l > 0) {
+        b1 = code[b1].a;
+        l--;
+    }
+    return b1;
+}
+
 void interpretador() {
     int p = 0, b = 1, t = 0; // registros program-, base-, topstack-
-    instruction i; // registro de instrução
+    instruction i; // registro de instruÃ§Ã£o
     int s[stacksize];
 
-    //espaços reservados
+    //espaÃ§os reservados
     s[1] = 0;
     s[2] = 0;
     s[3] = 0;
 
     int k = 0;
-    // Instrução para "alocar" espaço na memória
+    // InstruÃ§Ã£o para "alocar" espaÃ§o na memÃ³ria
     code[k].f = INT;
     code[k].l = 0;
     code[k].a = 3;
     k++;
 
-    // Loop para criar as instruções de inicialização e soma de 1 a 10
+    // Loop para criar as instruÃ§Ãµes de inicializaÃ§Ã£o e soma de 1 a 10
     for (int i = 1; i <= 10; i++) {
         code[k].f = lit;
         code[k].l = 0;
@@ -44,26 +54,15 @@ void interpretador() {
     for (int i = 1; i <= 9; i++) {
         code[k].f = opr;
         code[k].l = 0;
-        code[k].a = 2; // Realiza a operação de soma
+        code[k].a = 2; // Realiza a operaÃ§Ã£o de soma
         k++;
     }
 
-    // Instrução para encerrar o programa
+    // InstruÃ§Ã£o para encerrar o programa
     code[k].f = opr;
     code[k].l = 0;
     code[k].a = 0;
     k++;
-
-
-    int base(int l) {  //função interna
-        int b1 = b; // encontra base l níveis abaixo
-
-        while (l > 0) {
-            b1 = s[b1];
-            l--;
-        }
-        return b1;
-    }
 
 
     printf("\n| p |  b |  t |            conteudo da pilha            |");
@@ -79,10 +78,10 @@ void interpretador() {
                 s[t] = i.a;
                 //printf("\nLIT = %d\n", i.a);
                 break;
-            case opr: // operações
+            case opr: // operaÃ§Ãµes
                 switch(i.a){
                     case 0: // Return
-                        return 0;
+                        return;
                         break;
                     case 1: // neg
                         s[t] = -s[t];
@@ -92,15 +91,15 @@ void interpretador() {
                         s[t] = s[t] + s[t + 1];
                         //printf("Soma: %d + %d = %d", s[t], s[t+1], s[t]);
                         break;
-                    case 3: // Subtração
+                    case 3: // SubtraÃ§Ã£o
                         t--;
                         s[t] = s[t] - s[t + 1];
                         break;
-                    case 4: // Multiplicação
+                    case 4: // MultiplicaÃ§Ã£o
                         t--;
                         s[t] = s[t] * s[t + 1];
                         break;
-                    case 5: // Divisão
+                    case 5: // DivisÃ£o
                         t--;
                         s[t] = s[t] / s[t + 1];
                         break;
@@ -111,7 +110,7 @@ void interpretador() {
                         t--;
                         s[t] = (s[t] == s[t + 1]);
                         break;
-                    case 9: // Diferença
+                    case 9: // DiferenÃ§a
                         t--;
                         s[t] = (s[t] != s[t + 1]);
                         break;
@@ -177,8 +176,8 @@ void interpretador() {
         }
     } while (p != 0);
 }
+
 int main() {
     interpretador();
     return 0;
 }
-
