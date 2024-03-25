@@ -45,18 +45,18 @@ void interpretador() {
     int k = 0;
     //inicializando a pilha
     code[k].f = INT; code[k].l = 0; code[k].a = 6; k++;
-    
+
     // Representacao de cont = 2
     code[k].f = lit; code[k].l = 0; code[k].a = 2; k++;
     code[k].f = sto; code[k].l = 0; code[k].a = 3; k++;
-    
+
     // Representacao de do limite = 10
     code[k].f = lit; code[k].l = 0; code[k].a = 10; k++;
     code[k].f = sto; code[k].l = 0; code[k].a = 4; k++;
     // Representacao de soma = 1
     code[k].f = lit; code[k].l = 0; code[k].a = 1; k++;
     code[k].f = sto; code[k].l = 0; code[k].a = 5; k++;
-    
+
     // Representacao de soma += cont
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;
     code[k].f = lod; code[k].l = 0; code[k].a = 5; k++;
@@ -150,9 +150,11 @@ void interpretador() {
             case lod:
                 t++;
                 s[t] = s[base(i.l) + i.a];
+                //printf("lod %d, %d\n", i.l, i.a);
                 break;
             case sto:
                 s[base(i.l) + i.a] = s[t];
+                //printf("sto %d, %d\n", i.l, i.a);
                 t--;
                 break;
             case cal:
@@ -161,17 +163,21 @@ void interpretador() {
                 s[t + 3] = p;
                 b = t + 1;
                 p = i.a;
+                //printf("cal %d, %d\n", i.l, i.a);
                 break;
             case INT:
                 t += i.a;
+                //printf("INT %d\n", i.a);
                 break;
             case jmp:
                 p = i.a;
+                //printf("jmp %d\n", i.a);
                 break;
             case jpc:
                 if (s[t] == 0){
                     p = i.a;
                     t--;
+                    //printf("jpc %d\n", i.a);
                 }
                 break;
         }
