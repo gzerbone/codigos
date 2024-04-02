@@ -57,51 +57,56 @@ void pcodevhw(){ // begin
  s[1] = 0;
  s[2] = 0;
  s[3] = 0;
-    code[ 0 ].f = INT; code[ 0 ].l = 0; code[ 0 ].a = 5;
-    code[ 1 ].f = LIT; code[ 1 ].l = 0; code[ 1 ].a = 8;   // n = 5
-    code[ 2 ].f = STO; code[ 2 ].l = 0; code[ 2 ].a = 3;
-    code[ 3 ].f = LOD; code[ 3 ].l = 0; code[ 3 ].a = 3;
-    code[ 4 ].f = STO; code[ 4 ].l = 0; code[ 4 ].a = 8;
-    code[ 5 ].f = CAL; code[ 5 ].l = 0; code[ 5 ].a = 9;
 
-    code[ 6 ].f = LOD; code[ 6 ].l = 0; code[ 6 ].a = 11;
-    code[ 7 ].f = STO; code[ 7 ].l = 0; code[ 7 ].a = 4; // armazena o resultado em 4
+    // MAIN
+    code[ 0].f = INT; code[ 0].l = 0; code[ 0].a =  5;
+    code[ 1].f = LIT; code[ 1].l = 0; code[ 1].a =  5;
+    code[ 2].f = STO; code[ 2].l = 0; code[ 2].a =  3;
+    code[ 3].f = LOD; code[ 3].l = 0; code[ 3].a =  3;
+    code[ 4].f = STO; code[ 4].l = 0; code[ 4].a =  8;
+    code[ 5].f = CAL; code[ 5].l = 0; code[ 5].a = 20; // chama funcao
+    code[ 6].f = LOD; code[ 6].l = 0; code[ 6].a =  9;
+    code[ 7].f = STO; code[ 7].l = 0; code[ 7].a =  4; //armazena resultado na posicao 4
+    code[ 8].f = OPR; code[ 8].l = 0; code[ 8].a =  0;
 
-    code[ 8 ].f = OPR; code[ 8 ].l = 0; code[ 8 ].a = 0; // FIM MAIN
+    // FUNCAO FIBONACCI RECURSIVA 
+    // if n <= 2
+    code[20].f = INT; code[20].l = 0; code[20].a =  5;
+    code[21].f = LIT; code[21].l = 0; code[21].a =  0;
+    code[22].f = STO; code[22].l = 0; code[22].a =  4;
+    code[23].f = LOD; code[23].l = 0; code[23].a =  3;
+    code[24].f = LIT; code[24].l = 0; code[24].a =  2;
+    code[25].f = OPR; code[25].l = 0; code[25].a = 13;
+    code[26].f = JPC; code[26].l = 0; code[26].a =  46;
 
-    // FUNCAO FIB
-    code[ 9 ].f = INT; code[ 9 ].l = 0; code[ 9 ].a = 8;
-    code[ 10 ].f = LIT; code[10].l = 0; code[10].a = 0;     // n1 = 0
-    code[ 11 ].f = STO; code[11].l = 0; code[11].a = 4;
-    code[ 12 ].f = LIT; code[12].l = 0; code[12].a = 1;     // n2 = 1
-    code[ 13 ].f = STO; code[13].l = 0; code[13].a = 5;
+    
+    code[27].f = LOD; code[27].l = 0; code[27].a =  3;
+    code[28].f = LIT; code[28].l = 0; code[28].a =  1;
+    code[29].f = OPR; code[29].l = 0; code[29].a =  3;
+    code[30].f = STO; code[30].l = 0; code[30].a =  8;
+    code[31].f = CAL; code[31].l = 0; code[31].a = 20;
 
-    code[ 14 ].f = LIT; code[ 14 ].l = 0; code[ 14 ].a = 0;     // reuslt = 0
-    code[ 15 ].f = STO; code[ 15 ].l = 0; code[ 15 ].a = 6;
-    code[ 16 ].f = LIT; code[ 16 ].l = 0; code[ 16 ].a = 2;     // i = 2
-    code[ 17 ].f = STO; code[ 17 ].l = 0; code[ 17 ].a = 7;
+    code[32].f = LOD; code[32].l = 0; code[32].a =  4;
+    code[33].f = LOD; code[33].l = 0; code[33].a =  9;
+    code[34].f = OPR; code[34].l = 0; code[34].a =  2;
+    code[35].f = STO; code[35].l = 0; code[35].a =  4;
+    code[36].f = LOD; code[36].l = 0; code[36].a =  3;
+    
+    code[37].f = LIT; code[37].l = 0; code[37].a =  2;
+    code[38].f = OPR; code[38].l = 0; code[38].a =  3;
+    code[39].f = STO; code[39].l = 0; code[39].a =  8;
+    code[40].f = CAL; code[40].l = 0; code[40].a = 20;
 
-    code[ 18 ].f = LOD; code[ 18 ].l = 0; code[ 18 ].a = 4;
-    code[ 19 ].f = LOD; code[ 19 ].l = 0; code[ 19 ].a = 5;
-    code[ 20 ].f = OPR; code[ 20 ].l = 0; code[ 20 ].a = 2;     // n1 + n2
-    code[ 21 ].f = STO; code[ 21 ].l = 0; code[ 21 ].a = 6;     // result = n1 + n2
-    code[ 22 ].f = LOD; code[ 22 ].l = 0; code[ 22 ].a = 5;
-    code[ 23 ].f = STO; code[ 23 ].l = 0; code[ 23 ].a = 4;     // n1 = n2
-    code[ 24 ].f = LOD; code[ 24 ].l = 0; code[ 24 ].a = 6;
-    code[ 25 ].f = STO; code[ 25 ].l = 0; code[ 25 ].a = 5;     // n2 = result
+    code[41].f = LOD; code[41].l = 0; code[41].a =  4;
+    code[42].f = LOD; code[42].l = 0; code[42].a =  9;
+    code[43].f = OPR; code[43].l = 0; code[43].a =  2;
+    code[44].f = STO; code[44].l = 0; code[44].a =  4;
+    code[45].f = OPR; code[45].l = 0; code[45].a =  0;
 
-    code[ 26 ].f = LOD; code[ 26 ].l = 0; code[ 26 ].a = 7;
-    code[ 27 ].f = LIT; code[ 27 ].l = 0; code[ 27 ].a = 1;
-    code[ 28 ].f = OPR; code[ 28 ].l = 0; code[ 28 ].a = 2;     // i++
-    code[ 29 ].f = STO; code[ 29 ].l = 0; code[ 29 ].a = 7;
-
-    code[ 30 ].f = LOD; code[ 30 ].l = 0; code[ 30 ].a = 7;
-    code[ 31 ].f = LOD; code[ 31 ].l = 0; code[ 31 ].a = 3;
-    code[ 32 ].f = OPR; code[ 32 ].l = 0; code[ 32 ].a = 12;
-    code[ 33 ].f = JPC; code[ 33 ].l = 0; code[ 33 ].a = 35;
-    code[ 34 ].f = JMP; code[ 34 ].l = 0; code[ 34 ].a = 18;
-
-    code[ 35 ].f = OPR; code[ 35 ].l = 0; code[ 35 ].a = 0;
+    
+    code[46].f = LIT; code[46].l = 0; code[46].a =  1;
+    code[47].f = STO; code[47].l = 0; code[47].a =  4;
+    code[48].f = OPR; code[48].l = 0; code[48].a =  0;
 
 
  do {
