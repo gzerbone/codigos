@@ -58,7 +58,7 @@ void pcodevhw(){ // begin
  s[2] = 0;
  s[3] = 0;
     code[ 0 ].f = INT; code[ 0 ].l = 0; code[ 0 ].a = 5;
-    code[ 1 ].f = LIT; code[ 1 ].l = 0; code[ 1 ].a = 8;   // n = 5
+    code[ 1 ].f = LIT; code[ 1 ].l = 0; code[ 1 ].a = 5;   // n = 5
     code[ 2 ].f = STO; code[ 2 ].l = 0; code[ 2 ].a = 3;
     code[ 3 ].f = LOD; code[ 3 ].l = 0; code[ 3 ].a = 3;
     code[ 4 ].f = STO; code[ 4 ].l = 0; code[ 4 ].a = 8;
