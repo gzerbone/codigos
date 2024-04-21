@@ -60,7 +60,7 @@ void pcodevhw(){ // begin
     code[ 0 ].f = INT; code[ 0 ].l = 0; code[ 0 ].a = 5;
     code[ 1 ].f = LIT; code[ 1 ].l = 0; code[ 1 ].a = 4;
     code[ 2 ].f = STO; code[ 2 ].l = 0; code[ 2 ].a = 3;
-    
+
     code[ 3 ].f = LOD; code[ 3 ].l = 0; code[ 3 ].a = 3;
     code[ 4 ].f = STO; code[ 4 ].l = 0; code[ 4 ].a = 8;
     code[ 5 ].f = CAL; code[ 5 ].l = 0; code[ 5 ].a = 9;

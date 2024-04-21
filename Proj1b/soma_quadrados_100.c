@@ -2,8 +2,8 @@
 #include<locale.h>
 
 #define amax 2047
-#define levmax 3       
-#define cxmax 1000      
+#define levmax 3
+#define cxmax 1000
 #define stacksize 5012
 
 // Aluna: Gabriela Zerbone Magno Baptista
@@ -47,10 +47,13 @@ void interpretador() {
     code[k].f = INT; code[k].l = 0; code[k].a = 6; k++;			// 0-  libera 6 espacos de memoria
     code[k].f = lit; code[k].l = 0; code[k].a = 2; k++;			// 1 - Inicia contador com 2
     code[k].f = sto; code[k].l = 0; code[k].a = 3; k++;			// 2 - Salva contador
+
     code[k].f = lit; code[k].l = 0; code[k].a = 100; k++;		// 3 - Explicita o Limite
     code[k].f = sto; code[k].l = 0; code[k].a = 4; k++;			// 4 - Salva o limite
+
     code[k].f = lit; code[k].l = 0; code[k].a = 1; k++;			// 5 - Inicia Soma = 1
     code[k].f = sto; code[k].l = 0; code[k].a = 5; k++;			// 6 - Salva Soma
+
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;			// 7 - Inicio do loop (carrega i)
     code[k].f = lod; code[k].l = 0; code[k].a = 3; k++;			// 8 - Prepara quadrado (carrega i)
     code[k].f = opr; code[k].l = 0; code[k].a = 4; k++;			// 9 - i*i
@@ -79,7 +82,7 @@ void interpretador() {
                 t++;
                 s[t] = i.a;
                 break;
-            case opr: 
+            case opr:
                 switch(i.a){
                     case 0: // Return
                         t = b - 1;
