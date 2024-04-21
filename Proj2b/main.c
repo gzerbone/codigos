@@ -1,3 +1,6 @@
+
+// Gabriela Zerbone Magno Baptista
+
 #include <stdio.h>
 #include <stdlib.h>
 
