@@ -18,8 +18,7 @@ int lexLen;
 int nextToken;
 FILE *in_fp;
 
-int aceitacao = 0;
-int producao_atual[9] = {0}; // Inicializamos todos os elementos como 0
+int aceitacao;
 
 /* Classes de caracteres */
 #define LETRA 0
@@ -226,16 +225,23 @@ Node* factor() {
     if (nextToken == ID || nextToken == INT_LIT) {
         node = newNode(nextToken);
         lex();
-    } else if (nextToken == PAREN_ESQ) {
-        lex();
-        node = expr();
-        if (nextToken == PAREN_DIR) {
+    }    
+    /* Se a RHS é (<expr>), chame lex para passar o parêntese 
+    esquerdo, chame expr e verifique pelo parêntese 
+    direito */
+    else{
+        if (nextToken == PAREN_ESQ) {
             lex();
-        } else {
-            error(1);
+            node = expr();
+            if (nextToken == PAREN_DIR) {
+                lex();
+            } else {
+                error(1);
+            }
+        } 
+        else {
+            error(2);
         }
-    } else {
-        error(2);
     }
     return node;
 }
@@ -247,10 +253,10 @@ void error(int valor){
         printf("ERRO!!\nEXPLICACAO: Esperava um parentese direito \n");
         break;
     case 2:
-        printf("\nERRO!!\nEXPLICACAO: Nao era um id, um literal inteiro, ou um parentese esquerdo\n");
+        printf("\nERRO!!\n*EXPLICACAO* Nao era um id, um literal inteiro, ou um parentese esquerdo\n");
         break;
     default:
-        printf("\nERRO!!\n");
+    printf("\nERRO!!\n");
         break;
     }
 }
@@ -267,16 +273,17 @@ int main() {
             printf("\n");
             lex();
             Node* root = expr(); // Recebe a raiz da árvore de análise sintática
-            printf("\n");
-            printf("*********** ANALISE EM PRE-ORDEM ***********\n");
-            printf("       VETOR DOS TOKENS EM PRE-ORDEM\n         [");
-            // Função para imprimir a árvore em pré-ordem
-            printPreOrder(root);
-            printf("]");
+
             if (aceitacao == 0) {
-                printf("\n\n--->>> ACEITA!!\n****************************************\n");
-            } else {
-                printf("\n\n--->>> ERRO SINTATICO!!\n****************************************\n");
+                printf("\n");
+                printf("        - ANALISE EM PRE-ORDEM - \n");
+                printf("       VETOR DOS TOKENS EM PRE-ORDEM\n         [");
+                // Função para imprimir a árvore em pré-ordem
+                printPreOrder(root);
+                printf("]");
+                printf("\n\n--->>> ACEITA!!\n****************************************");
+            }else{
+                printf("##################################\n");
             }
             aceitacao = 0;
         } while (nextToken != EOF);
