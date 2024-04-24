@@ -1,23 +1,21 @@
 Proximo token e: 11 -- Proximo lexema e: xyz
 Proximo token e: 27 -- Proximo lexema e: $
 
-*********** ANALISE EM PRE-ORDEM ***********
+        - ANALISE EM PRE-ORDEM - 
        VETOR DOS TOKENS EM PRE-ORDEM
          [ 11 ]
 
 --->>> ACEITA!!
 ****************************************
-
 Proximo token e: 10 -- Proximo lexema e: 1357
 Proximo token e: 27 -- Proximo lexema e: $
 
-*********** ANALISE EM PRE-ORDEM ***********
+        - ANALISE EM PRE-ORDEM - 
        VETOR DOS TOKENS EM PRE-ORDEM
          [ 10 ]
 
 --->>> ACEITA!!
 ****************************************
-
 Proximo token e: 10 -- Proximo lexema e: 1
 Proximo token e: 21 -- Proximo lexema e: +
 Proximo token e: 25 -- Proximo lexema e: (
@@ -27,13 +25,12 @@ Proximo token e: 10 -- Proximo lexema e: 5
 Proximo token e: 26 -- Proximo lexema e: )
 Proximo token e: 27 -- Proximo lexema e: $
 
-*********** ANALISE EM PRE-ORDEM ***********
+        - ANALISE EM PRE-ORDEM -
        VETOR DOS TOKENS EM PRE-ORDEM
          [ 21  10  23  10  10 ]
 
 --->>> ACEITA!!
 ****************************************
-
 Proximo token e: 25 -- Proximo lexema e: (
 Proximo token e: 10 -- Proximo lexema e: 5
 Proximo token e: 23 -- Proximo lexema e: *
@@ -47,19 +44,18 @@ Proximo token e: 10 -- Proximo lexema e: 11
 Proximo token e: 26 -- Proximo lexema e: )
 Proximo token e: 27 -- Proximo lexema e: $
 
-*********** ANALISE EM PRE-ORDEM ***********
+        - ANALISE EM PRE-ORDEM -
        VETOR DOS TOKENS EM PRE-ORDEM
          [ 21  23  10  10  24  10  10 ]
 
 --->>> ACEITA!!
 ****************************************
-
 Proximo token e: 25 -- Proximo lexema e: (
 Proximo token e: 10 -- Proximo lexema e: 8642
 Proximo token e: 26 -- Proximo lexema e: )
 Proximo token e: -1 -- Proximo lexema e: EOF
 
-*********** ANALISE EM PRE-ORDEM ***********
+        - ANALISE EM PRE-ORDEM -
        VETOR DOS TOKENS EM PRE-ORDEM
          [ 10 ]
 
