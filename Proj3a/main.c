@@ -24,7 +24,7 @@ int main() {
     scanf("%d", &quantidade);
 
     permutacoes = calcularPermutacoes(quantidade);
-    // Verificar se o valor do fatorial é válido
+
     if (permutacoes != -1) {
         printf("O numero de permutacoes possiveis e: %d permutacoes\n", permutacoes);
     }
