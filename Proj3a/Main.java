@@ -1,36 +1,43 @@
-// Aluna: Gabriela Zerbone Magno Baptista
-
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
-    public static int fatorial(int n) {
-        // Verificar se o fatorial extrapola a capacidade do int
-        if (n > 12) {
-            System.out.println("IMPORTANTE: O valor do fatorial extrapola a capacidade do int");
-            return -1; // retorno que indica o estouro da capacidade
+    static void permutacao(int[] vetor, int n, int i) {
+        if (i == n) {
+            return;
         }
-        if (n <= 1)
-            return 1;
-        else
-            return n * fatorial(n - 1);
-    }
-    
-    // calculo da quantidade de permutacoes
-    public static int calcularPermutacoes(int quantidade) {
-        return fatorial(quantidade);
+        for (int j = i; j < n; j++) {
+            int temp = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = temp;
+            permutacao(vetor, n, i + 1);
+            temp = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = temp; 
+        }
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite a quantidade de elementos do vetor: ");
-        int quantidade = scanner.nextInt();
+        int max_n = 2; // Tamanho inicial de n
+        long inicio, fim;
+        System.out.println("Tempo de permutacao para cada n:");
 
-        int permutacoes = calcularPermutacoes(quantidade);
+        while (true) {
+            int[] vetor = new int[max_n];
+            for (int i = 0; i < max_n; i++) {
+                vetor[i] = i + 1;
+            }
 
-        // Verificar se o valor do fatorial é válido
-        if (permutacoes != -1) {
-            System.out.println("O numero de permutacoes possiveis e: " + permutacoes);
+            inicio = System.currentTimeMillis();
+            permutacao(vetor, max_n, 0);
+            fim = System.currentTimeMillis();
+
+            double tempo = (fim - inicio) / 1000.0;
+            System.out.printf("n = %d: --- %.6f segundos\n", max_n, tempo);
+            if (tempo > 60.0) {
+                break;
+            }
+            max_n++;
         }
-        scanner.close();
+        System.out.printf("--> n maximo em menos de 1 minuto: %d\n", max_n - 1);
     }
 }
