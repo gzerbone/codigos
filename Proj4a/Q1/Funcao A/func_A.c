@@ -10,7 +10,7 @@ int A(int m, int n) {
 }
 
 int main() {
-    int resultado = A(2, 7);
+    int resultado = A(2, 2);
     printf("A(2, 3) = %d\n", resultado);
 
     return 0;
